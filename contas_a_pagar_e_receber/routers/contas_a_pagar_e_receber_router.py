@@ -1,4 +1,3 @@
-from decimal import Decimal
 from typing import List
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -8,12 +7,12 @@ router= APIRouter(prefix="/contas-a-pagar-e-receber")
 class ContaPagarReceberResponse(BaseModel):
     id: int
     descricao: str
-    valor: Decimal
+    valor: float
     tipo: str # PAGAR, RECEBER
     
 class ContaPagarReceberRequest(BaseModel):
     descricao: str
-    valor: Decimal
+    valor: float
     tipo: str # PAGAR, RECEBER
 
 
@@ -28,5 +27,8 @@ def listar_contas():
 @router.post("/", response_model=ContaPagarReceberResponse, status_code=201)    
 def criar_conta(conta: ContaPagarReceberRequest):
     return ContaPagarReceberResponse( 
-            id = 1, descricao = conta.descricao, valor = conta.valor, tipo=conta.tipo
+            id = 1, 
+            descricao = conta.descricao, 
+            valor = conta.valor, 
+            tipo=conta.tipo
             )
